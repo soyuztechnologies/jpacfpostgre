@@ -40,10 +40,10 @@ public class vendorService {
 		return vendor.lookupVendorByGST(GSTNo);
 	} 
 	
-	public Vendor getSingleVendor(Long id) {
+	public Vendor getSingleVendor(String id) {
 		Optional<Vendor> searchResult = vendor.findById(id);
 		if(!searchResult.isPresent()) {
-			return new Vendor((long)0, "","","","","","", null);
+			return new Vendor((String)"", "","","","","","", null);
 		}
 		return searchResult.get();
 	}
@@ -51,12 +51,12 @@ public class vendorService {
 	public Vendor changeVendor(Vendor payload) {
 		Optional<Vendor> myVendor = vendor.findById(payload.getId());
 		if(!myVendor.isPresent()) {
-			return new Vendor((long)0, "","","","","","", null);
+			return new Vendor((String)"", "","","","","","", null);
 		}
 		return vendor.save(payload);
 	}
 	
-	public String deleteVendor(Long Id) {
+	public String deleteVendor(String Id) {
 		vendor.deleteById(Id);
 		return "Deleted Successfully";
 	}

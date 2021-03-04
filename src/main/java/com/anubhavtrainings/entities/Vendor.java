@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.GenericGenerator;
+
 
 @Entity
 @Table(name="VENDOR")
@@ -12,8 +14,10 @@ public class Vendor {
 	
 	@Id
 	@Column(nullable=false, name="ID")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	public Long id;
+	//@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(generator = "uuid2")
+	@GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+	public String id;
 	@Column(nullable=false, name="COMPANY_NAME")
 	public String companyName;
 	@Column(nullable=false, name="FIRST_NAME")
@@ -45,7 +49,7 @@ public class Vendor {
 		
 	}
 	
-	public Vendor(Long id, String companyName, String firstName, String lastName, String website, String email,
+	public Vendor(String id, String companyName, String firstName, String lastName, String website, String email,
 			String status, String gstNo) {
 		super();
 		this.id = id;
@@ -57,10 +61,10 @@ public class Vendor {
 		this.status = status;
 		this.gstNo = gstNo;
 	}
-	public Long getId() {
+	public String getId() {
 		return this.id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getCompanyName() {

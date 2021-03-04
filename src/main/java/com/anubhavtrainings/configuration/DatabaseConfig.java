@@ -22,6 +22,7 @@ import com.anubhavtrainings.entities.Vendor;
 
 //@Profile({"local", "cf-test", "cf-dev","cf-prod"})
 @Configuration
+//@Profile("cloud")
 public class DatabaseConfig extends AbstractCloudConfig {
 	
 

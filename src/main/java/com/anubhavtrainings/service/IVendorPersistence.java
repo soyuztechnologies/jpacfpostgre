@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.anubhavtrainings.entities.Vendor;
 
-public interface IVendorPersistence extends JpaRepository<Vendor, Long> {
+public interface IVendorPersistence extends JpaRepository<Vendor, String> {
 	List <Vendor> findByCompanyName(String companyName);
 	
 	@Query(nativeQuery=true, 

@@ -50,7 +50,7 @@ public class VendorController {
 	
 	//ES_GET_ENTITY
 	@RequestMapping("/vendor/{vendorCode}")
-	public Vendor getVendorById(@PathVariable("vendorCode") Long code) {
+	public Vendor getVendorById(@PathVariable("vendorCode") String code) {
 		return vendorService.getSingleVendor(code);
 	}
 	
@@ -74,7 +74,7 @@ public class VendorController {
 	
 	//Test Yourself using - http://localhost:8080/vendor/4
 	@RequestMapping(method=RequestMethod.DELETE, value="/vendor/{id}")
-	public String removeVendor(@PathVariable("id") Long Id) {
+	public String removeVendor(@PathVariable("id") String Id) {
 		return vendorService.deleteVendor(Id);
 	}
 	
