@@ -69,6 +69,11 @@
 		    <version>2.0.7.RELEASE</version>
 		    <scope>runtime</scope>
 		</dependency>
+		<dependency>
+		    <groupId>com.sap.hana.cloud</groupId>
+		    <artifactId>spring-cloud-cloudfoundry-hana-service-connector</artifactId>
+		    <version>1.0.4.RELEASE</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-spring-service-connector -->
 		<dependency>
 		    <groupId>org.springframework.cloud</groupId>

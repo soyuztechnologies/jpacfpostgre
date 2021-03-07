@@ -1,0 +1,48 @@
+create hana instance
+hana container type schema with name hana_migration
+bind service
+@Value("${vcap.services.hana_migration.credentials.user}")
+	private String username;
+
+	@Value("${vcap.services.hana_migration.credentials.password}")
+	private String password;
+	
+	@Value("${vcap.services.hana_migration.credentials.url}")
+	private String hostname;
+	
+	@Value("${vcap.services.hana_migration.credentials.port}")
+	private String port;
+	
+
+	@Value("${vcap.services.hana_migration.credentials.schema}")
+	private String schema;	
+	
+    @Bean
+    public DataSource dataSource() {
+        /*
+         * Load BasicDbcpPooledDataSourceCreator before
+         * TomcatJdbcPooledDataSourceCreator. Also see the following link for a
+         * detailled discussion of this issue:
+         * https://stackoverflow.com/questions/36885891/jpa-eclipselink-understanding-
+         * classloader-issues
+         */
+        List<String> dataSourceNames = Arrays.asList("BasicDbcpPooledDataSourceCreator",
+                "TomcatJdbcPooledDataSourceCreator", "HikariCpPooledDataSourceCreator",
+                "TomcatDbcpPooledDataSourceCreator");
+        
+        DataSourceConfig dbConfig = new DataSourceConfig(dataSourceNames);
+        DataSource hikariDataSource = // connectionFactory().dataSource(dbConfig);
+        DataSourceBuilder.create()
+		.type(HikariDataSource.class)
+		.driverClassName(com.sap.db.jdbc.Driver.class.getName())
+		.url(this.hostname)
+		.username(this.username)
+		.password(this.password)
+		.build();	
+        
+        try {
+			hikariDataSource.getConnection().setSchema(this.schema);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
