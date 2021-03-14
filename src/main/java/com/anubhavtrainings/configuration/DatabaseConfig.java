@@ -25,7 +25,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 //@Profile({"local", "cf-test", "cf-dev","cf-prod"})
 @Configuration
-//@Profile("cloud")
+@Profile("cloud")
 public class DatabaseConfig extends AbstractCloudConfig {
 	
 

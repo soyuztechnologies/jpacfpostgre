@@ -5,36 +5,53 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.apache.olingo.odata2.api.annotation.edm.EdmEntitySet;
+import org.apache.olingo.odata2.api.annotation.edm.EdmEntityType;
+import org.apache.olingo.odata2.api.annotation.edm.EdmKey;
+import org.apache.olingo.odata2.api.annotation.edm.EdmNavigationProperty;
+import org.apache.olingo.odata2.api.annotation.edm.EdmNavigationProperty.Multiplicity;
+import org.apache.olingo.odata2.api.annotation.edm.EdmProperty;
 import org.hibernate.annotations.GenericGenerator;
 
-
+@EdmEntityType
+@EdmEntitySet
 @Entity
 @Table(name="VENDOR")
 public class Vendor {
 	
+	@EdmKey
+	@EdmProperty
 	@Id
 	@Column(nullable=false, name="ID")
 	//@GeneratedValue(strategy=GenerationType.AUTO)
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
 	public String id;
+	@EdmProperty
 	@Column(nullable=false, name="COMPANY_NAME")
 	public String companyName;
+	@EdmProperty
 	@Column(nullable=false, name="FIRST_NAME")
 	public String firstName;
 	@Column(nullable=false, name="LAST_NAME")
+	@EdmProperty
 	public String lastName;
 	@Column(nullable=false, name="WEBSITE")
+	@EdmProperty
 	public String website;
 	@Column(nullable=false, name="EMAILID")
+	@EdmProperty
 	public String email;
 	@Column(nullable=false, name="STATUS")
+	@EdmProperty
 	public String status;
 	@Column(nullable=false, name="GST_NO")
+	@EdmProperty
 	public String gstNo;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JoinColumn(name="vendor", referencedColumnName="ID")
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="vendor_id", referencedColumnName="ID")
+	@EdmNavigationProperty(toType=address.class, toMultiplicity=Multiplicity.MANY)
 	private List<address> addresses = new ArrayList<>();
 	
 	public List<address> getAddresses() {

@@ -5,29 +5,55 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import org.apache.olingo.odata2.api.annotation.edm.EdmEntitySet;
+import org.apache.olingo.odata2.api.annotation.edm.EdmEntityType;
+import org.apache.olingo.odata2.api.annotation.edm.EdmKey;
+import org.apache.olingo.odata2.api.annotation.edm.EdmProperty;
 import org.hibernate.annotations.GenericGenerator;
 
+@EdmEntityType
+@EdmEntitySet
 @Entity
 public class address {
 	
 	@Id
+	@EdmKey
+	@EdmProperty
 	//@GeneratedValue(strategy=GenerationType.AUTO)
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
 	@Column(nullable=false, name="ID")
 	private String addressId;
+	@EdmProperty
 	@Column(name="TYPE")
 	private String addressType;
+	@EdmProperty
 	@Column(name="STREET")
 	private String street;
+	@EdmProperty
 	@Column(name="CITY")
 	private String city;
+	@EdmProperty
 	@Column(name="COUNTRY")
 	private String country;
+	@EdmProperty
 	@Column(name="REGION")
 	private String region;
 	
+
+	@ManyToOne  
+	@JoinColumn(name="vendor_id", referencedColumnName="id")
+    public Vendor vendor;  
+	
+	public Vendor getVendor() {
+		return vendor;
+	}
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
+	}
 	public address() {
 		
 	}

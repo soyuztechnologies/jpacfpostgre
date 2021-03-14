@@ -1,0 +1,9 @@
+create column table vendor(id Varchar(64), companyName Varchar(100),
+	firstName Varchar(100),
+	lastName Varchar(70),
+	website Varchar(90),
+	email Varchar(75),
+	vstatus Varchar(1),
+	gstNo Varchar(32),
+	primary key( id )
+);
